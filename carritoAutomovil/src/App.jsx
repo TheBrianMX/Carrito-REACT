@@ -1,8 +1,11 @@
 import { Automovil } from "./components/Automovil"
 import { Header } from "./components/Header"
+import { db } from "./data/db"
 
 function App() {
 
+  const data = db
+  console.log(data)
 
   return (
     <>
