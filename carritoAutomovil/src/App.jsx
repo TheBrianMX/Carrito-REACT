@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Automovil } from "./components/Automovil"
 import { Header } from "./components/Header"
 import { db } from "./data/db"
@@ -5,7 +6,13 @@ import { db } from "./data/db"
 function App() {
 
   const data = db
-  console.log(data)
+
+  const [cart,setCart] = useState([])
+
+
+  function addToCart(item) {
+    console.log('agregando al carrito...', item)
+  }
 
   return (
     <>
@@ -13,9 +20,23 @@ function App() {
 
     <main className="container-xl mt-5">
       <h2 className="text-center">Automóviles disponibles</h2>
-      <div className="row mt-5"></div>
+      <div className="row mt-5">
+
+       {data.map((automovil) => (
+
+       
+       <Automovil
+        key={automovil.id}
+        setCart= {setCart}
+        automovil = {automovil}
+
+        addToCart ={addToCart}
+       />
+      ) )} 
+
+      </div>
       
-      <Automovil/>
+      
       
     </main>
 
