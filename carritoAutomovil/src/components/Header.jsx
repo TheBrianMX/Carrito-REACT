@@ -1,7 +1,5 @@
 
-const Header = ({ cart , removeFromCart, decreaseQuantity, increaseQuantity, clearCart}) => {
-
-    const cartTotal = cart.reduce( (total, { quantity, price }) => {return total + ( quantity * price )}, 0)
+const Header = ({ cart , removeFromCart, decreaseQuantity, increaseQuantity, clearCart, cartTotal}) => {
 
     return(
         <header className="py-3 header">
