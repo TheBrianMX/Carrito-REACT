@@ -1,5 +1,8 @@
 
-const Header = () => {
+const Header = ({ cart , removeFromCart}) => {
+
+    const cartTotal = cart.reduce( (total, { quantity, price }) => {return total + ( quantity * price )}, 0)
+
     return(
         <header className="py-3 header">
       <div className="container-xl">
@@ -13,7 +16,12 @@ const Header = () => {
             <div className="carrito-container">
               <div className="carrito">
                 <img className="img-fluid" src="./public/img/carrito.png" alt="imagen carrito" />
-                <div id="carrito-content" className="carrito-content"><p className="text-center">El carrito está vacío</p>                  
+                <div id="carrito-content" className="carrito-content">
+                    { cart.length === 0 ?
+                    (<p className="text-center">El carrito está vacío</p>)      
+                    :
+                    (
+                    <>
                   <table className="w-100 table">
                     <thead>
                       <tr>
@@ -23,13 +31,16 @@ const Header = () => {
                         <th>Cantidad</th>
                       </tr>
                     </thead>
-                    <tbody>                      
-                      <tr>
+                    <tbody>  
+                        {cart.map(({id, image, name, price, quantity}) => (                     
+                      <tr
+                        key={id}
+                      >
                         <td className="align-middle">
-                          <img className="img-fluid" src="./public/img/aspark owl.jpg" alt="imagen automóvil" />
+                          <img className="img-fluid" src={`/img/${image}.jpg`} alt="imagen automóvil" />
                         </td>
-                        <td className="align-middle">Nombre</td>
-                        <td className="fw-bold align-middle">$1.000.000</td>
+                        <td className="align-middle">{name}</td>
+                        <td className="fw-bold align-middle">$ {price.toLocaleString()} </td>
                         <td className="align-middle">
                           <div className="d-flex align-items-center gap-4">
                             <button 
@@ -38,7 +49,7 @@ const Header = () => {
                               >
                                 -
                               </button>
-                            1
+                            {quantity}
                             <button 
                               type="button" 
                               className="btn btn-dark"
@@ -52,16 +63,21 @@ const Header = () => {
                             type="button" 
                             className="btn-close" 
                             aria-label="Close"
+                            onClick={() => removeFromCart(id)}
                             ></button>
                         </td>
                       </tr>
+                      ))}
                     </tbody>
 
                   </table>
-                  <p className="text-end">Total a pagar: <span className="fw-bold">$ 1.000.000</span></p>
+                  <p className="text-end">Total a pagar: <span className="fw-bold">$ {cartTotal.toLocaleString()} </span></p>
+                
                   <button 
                     className="btn btn-dark w-100 mt-3 p-2"
                     >Vaciar Carrito</button>
+                    </>
+                    )}
                 </div>
               </div>
             </div>

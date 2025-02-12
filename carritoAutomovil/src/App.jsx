@@ -7,16 +7,33 @@ function App() {
 
   const data = db
 
-  const [cart,setCart] = useState([])
+  const [cart, setCart] = useState([])
 
 
   function addToCart(item) {
-    console.log('agregando al carrito...', item)
+    const itemExist = cart.findIndex(automovil => automovil.id === item.id )
+
+    if (itemExist >= 0) {
+      const updatedCart = [...cart]
+      updatedCart[itemExist].quantity++
+      setCart(updatedCart)
+    } else {
+      item.quantity = 1
+      setCart([...cart, item])
+    }
   }
+
+  function removeFromCart(ideEliminar) {
+    setCart(preCart => preCart.filter( automovil => automovil.id !== ideEliminar ))
+  }
+
 
   return (
     <>
-      <Header/>
+      <Header
+        cart = {cart}
+        removeFromCart = {removeFromCart}
+      />
 
     <main className="container-xl mt-5">
       <h2 className="text-center">Automóviles disponibles</h2>
