@@ -1,5 +1,5 @@
 
-const Header = ({ cart , removeFromCart}) => {
+const Header = ({ cart , removeFromCart, decreaseQuantity, increaseQuantity, clearCart}) => {
 
     const cartTotal = cart.reduce( (total, { quantity, price }) => {return total + ( quantity * price )}, 0)
 
@@ -46,6 +46,7 @@ const Header = ({ cart , removeFromCart}) => {
                             <button 
                               type="button" 
                               className="btn btn-dark"
+                              onClick={ () => decreaseQuantity(id)}
                               >
                                 -
                               </button>
@@ -53,6 +54,7 @@ const Header = ({ cart , removeFromCart}) => {
                             <button 
                               type="button" 
                               className="btn btn-dark"
+                              onClick={ () => increaseQuantity(id)}
                               >
                                 +
                               </button>
@@ -75,6 +77,7 @@ const Header = ({ cart , removeFromCart}) => {
                 
                   <button 
                     className="btn btn-dark w-100 mt-3 p-2"
+                    onClick={clearCart}
                     >Vaciar Carrito</button>
                     </>
                     )}
